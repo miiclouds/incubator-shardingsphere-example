@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.shardingsphere.example.transaction.base.seata.raw.jdbc;
+package org.apache.shardingsphere.example.transaction.base.pack.jdbc;
 
 import org.apache.shardingsphere.example.core.api.entity.Order;
 import org.apache.shardingsphere.example.core.api.entity.OrderItem;
@@ -30,18 +30,13 @@ import org.apache.shardingsphere.transaction.core.TransactionTypeHolder;
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.concurrent.locks.LockSupport;
 
-/*
-    Please startup seata-server( before running this example.
-    Download seata-server from here https://github.com/seata/seata/releases
+/***
+ *
  */
-public class ExampleMain {
+public class PackExampleMain {
     
     private static String configFile = "/META-INF/sharding-databases-tables.yaml";
 //    private static String configFile = "/META-INF/master-slave.yaml";
@@ -63,8 +58,8 @@ public class ExampleMain {
     }
     
     private static void processSeataTransaction(final DataSource dataSource, final ExampleService exampleService) throws SQLException {
-        TransactionTypeHolder.set(TransactionType.BASE_SEATA);
-        System.out.println("------############## Start seata succeed transaction ##################------");
+        TransactionTypeHolder.set(TransactionType.BASE_PACK);
+        System.out.println("------############## Start Pack succeed transaction ##################------");
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
             insertSuccess(connection, exampleService);
@@ -72,9 +67,10 @@ public class ExampleMain {
         }
         LockSupport.parkUntil(System.currentTimeMillis() + 1000);
         truncateTable(dataSource);
-        System.out.println("------############## End seata succeed transaction ######################------");
-        System.out.println("------############## Start seata failure transaction ############------");
-        TransactionTypeHolder.set(TransactionType.BASE_SEATA);
+        System.out.println("------############## End Pack succeed transaction ######################------");
+
+        System.out.println("------############## Start Pack failure transaction ############------");
+        TransactionTypeHolder.set(TransactionType.BASE_PACK);
         Connection connection = dataSource.getConnection();
         try {
             connection.setAutoCommit(false);
@@ -84,7 +80,7 @@ public class ExampleMain {
             connection.rollback();
         }
         exampleService.printData();
-        System.out.println("------############# End seata failure transaction #############------");
+        System.out.println("------############# End Pack failure transaction #############------");
         truncateTable(dataSource);
     }
     

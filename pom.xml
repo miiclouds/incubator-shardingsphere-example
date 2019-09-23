@@ -41,6 +41,7 @@
         <hibernate.version>4.3.11.Final</hibernate.version>
     
         <seata.version>0.5.1</seata.version>
+        <pack.version>0.6.0-SNAPSHOT</pack.version>
 
         <junit.version>4.12</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
@@ -84,6 +85,11 @@
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-transaction-base-seata-at</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-transaction-base-pack</artifactId>
                 <version>${shardingsphere.version}</version>
             </dependency>
             <dependency>

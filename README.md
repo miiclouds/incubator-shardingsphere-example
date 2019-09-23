@@ -68,7 +68,8 @@ shardingsphere-example
   │   │   └── orchestration-spring-namespace-example
   │   ├── transaction-example
   │   │   ├── transaction-2pc-xa-example
-  │   │   └──transaction-base-seata-example
+  │   │   └── transaction-base-seata-example
+  │   │   └── transaction-base-pack-example
   │   ├── other-feature-example
   │   │   ├── hint-example
   │   │   └── encrypt-example
